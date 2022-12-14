@@ -1,0 +1,38 @@
+<%- include('../partials/header.ejs')%>
+<div class="content">
+    <br><br>
+    <% if(trades.length){ %>
+        <p> You have the following Available trades </p>
+        <table border="1px" class="center_table">
+            <tr>
+                <td> Title </td>
+                <td> Category </td>
+                <td> Status</td>
+            </tr>
+            <%trades.forEach(trade=>{ %>
+                <%if(trade.status == "Available"){%>
+                    <form   action = '/trades/makeoffer' method = 'POST'>
+                    <tr>
+                        <td>
+                            <a  href="/trades/<%= trade.id%>"><input type="radio" id='regular' name="offer" value="<%= trade.id%>"><%= trade.title%> </a>
+                        </td>
+                        <td>
+                            <%= trade.category%>
+                        </td>
+                        <td>
+                            <%= trade.status%>
+                        </td>
+                    </tr>
+                      
+                    <%} }) %> 
+                </table>
+                    <input type="hidden" name="trade" class="form-control" value="<%= tradeID %>">
+                    <input type="hidden" name="tradeOwner" class="form-control" value="<%= tradeOwner %>">
+                    <input type="hidden" name="offerBy" class="form-control" value="<%= offerBy %>">
+                    <button type="submit" class="btn btn-md trade-btn">Trade</button>
+                </form>
+    <% } else {%>
+        <p> You have not created any trades</p>
+<%} %>
+</div>
+<%- include('../partials/footer.ejs')%>

@@ -1,0 +1,31 @@
+<%- include('../partials/header.ejs')%>
+<div id="alltrades">
+    <br>
+    <br>
+    <br>
+    <br>
+      <!-- <h3>Trades Details</h3> -->
+      <% if(trades.length){ %>
+         <%const cat = new Set()
+         trades.forEach(element => cat.add(element.category))
+         const catList = [...cat]; 
+         trades['categories'] = catList
+         trades.push(cat)
+         trades.categories.forEach(trade=>{
+                     let count = 0 ,cnt=0%>
+                     <b><p><%= trade%></p></b>
+                     <%trades.forEach(element => {
+                     if(trade=== element.category){%>
+                         <ul>
+                             <li><a href="/trades/<%= element.id%>" class="text"><p><%= element.title %></p></a></li>
+                         </ul>
+                     <%}
+             })
+         })
+                     
+     }else{ %>
+         <p>There are no trades to display. </p>
+     <% } %>
+ 
+</div>
+<%- include('../partials/footer.ejs')%>

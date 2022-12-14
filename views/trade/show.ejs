@@ -1,0 +1,55 @@
+<%- include('../partials/header.ejs')%>
+<div class="content">
+    <br>
+    <br>
+    <!-- <img id="elec" src="/images/electronics.png" alt=" electronics" width="400" height="350"> -->
+    <img id="elec" src="<%=trade.image%>" alt=" <%=trade.title %>" width="400" height="350">
+        <table border="1px">    
+            <tr>
+                <td> Category:- </td>
+                    <td><h2><b><%=trade.category%></b></h2></td>
+                </tr>
+            <tr>
+
+            <td> Title:- </td>
+        <td><h2><%=trade.title%></h2></td>
+        </tr>
+                <tr> 
+                    <td>Details:- </td>
+            
+                 <td> <%=trade.Details%></td>
+                </tr>
+                <tr>
+
+                    <td>Status :- </td>
+                    <td><%= trade.status%></td>
+                    
+                </tr>
+                <tr>
+                    <td>Created By :- </td>
+                    <td><%= trade.createdBy.firstName + " "+ trade.createdBy.lastName %></td>
+                </tr>
+                <% if(user != trade.createdBy._id) { %>
+                <form>
+                    <tr>
+                        <td><button class="button" type="submit" formmethod="GET" formaction="/users/trade/<%= trade.id %>">Trade</button></td>
+                        
+                        <% if(!onWatch) { %>
+                        <td><button class="button" type="submit" formmethod="POST" formaction="/users/<%= trade.id %>/watch">Watch</button></td>
+                        <% } else  { %>
+                            <td><button class="button" type="submit" formmethod="POST" formaction="/users/<%= trade.id %>/unwatch">UnWatch</button></td>
+                        <% }%>
+                    </tr>
+                    </form>
+                    <% } %>
+                <% if(user == trade.createdBy._id) { %>
+                <form>
+                <tr>
+                    <td><button class="button" type="submit" formmethod="GET" formaction="/trades/<%= trade.id %>/edit">Edit</button></td>
+                    <td><button class="button" type="submit" formmethod="POST" formaction="/trades/<%= trade.id %>?_method=DELETE">Delete</button></td>
+                </tr>
+                </form>
+                <% } %>
+</table>
+</div>
+<%- include('../partials/footer.ejs')%>

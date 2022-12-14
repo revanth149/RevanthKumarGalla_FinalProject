@@ -1,0 +1,115 @@
+ <%- include('../partials/header.ejs')%>
+
+<div class="content">
+    <div class=" row">
+
+    <div class="column">
+    <br>
+    <h2>Welcome, <%=user.firstName%></h2>
+    <% if(trades.length){ %>
+        <p> You have created the following trades</p>
+        <table border="1px" class="center_table">
+            <tr>
+                <td> Title </td>
+                <td> Category </td>
+                <td> Status</td>
+                <td> Actions</td>
+            </tr>
+           
+                <%trades.forEach(trade=>{ %>
+                <tr>
+                    <td> <a href = '/trades/<%=trade.id%>'>  <%=trade.title %></a> </td>
+                    <td> <%=trade.category %> </td>
+                    <td> <%=trade.status%> </td>
+                    <td>
+                        <form>
+                            <button class="button" type="submit" formmethod="GET" formaction="/trades/<%= trade.id %>/edit">Edit</button>
+                            <button class="button" type="submit" formmethod="POST" formaction="/trades/<%= trade.id %>?_method=DELETE">Delete</button>
+                        <% offersReceived.forEach(received => { %>
+                            <!-- <%= received.trade.id %>
+                            <%= trade.id %>
+                            <%= received.tradeOwner.id%>
+                            <%= user.id %> -->
+                           <% if((received.trade.id == trade.id) && (received.tradeOwner.id==user.id) && (trade.status== "Offer Pending")) { %>
+                                <button class="button" type="submit" formmethod="POST" formaction="/trades/<%= received.id %>/acceptoffer">Accept</button>
+                                <button class="button" type="submit" formmethod="POST" formaction="/trades/<%= received.id %>/canceloffer">Reject</button>
+                            </form>
+                          <% }}); %>  
+                    </td>
+                </tr>
+                <%}); %>
+            
+            
+        </table>
+       
+    <% } else {%>
+        <p> You have not created any trades</p>
+<%} %>
+</div>
+<div class="column">
+    <br><br>
+<% if(watchlist.length){ %>
+    <p> You are watching the following trades</p>
+    <table border="1px" class="center_table">
+        <tr>
+            <td> Title </td>
+            <td> Category </td>
+            <td> Status</td>
+            <td> Actions</td>
+
+        </tr>
+            <%watchlist.forEach(watch=>{ %>
+            <tr>
+                <td> <a href = '/trades/<%=watch.trade.id%>'>  <%=watch.trade.title %></a> </td>
+                <td> <%=watch.trade.category %> </td>
+                <td> <%=watch.trade.status%> </td>
+                <td>
+                    <form>
+                        <button class="button" type="submit" formmethod="POST" formaction="/users/<%=watch.trade.id%>/unwatch">UnWatch</button>
+                    </form>
+                </td>
+            </tr>
+            <%}); %>
+        
+        
+    </table>
+   
+<% } else {%>
+    <p> You are not Watching any trades</p>
+<%} %>
+
+</div>
+<div class="column">
+<br><br>
+<% if(offersGiven.length){ %>
+    <p> Your offers</p>
+    <table border="1px" class="center_table">
+        <tr>
+            <td> Title </td>
+            <td> Category </td>
+            <td> Status</td>
+            <td> Actions</td>
+
+        </tr>
+            <%offersGiven.forEach(given=>{ %>
+            <tr>
+                <td> <a href = '/trades/<%=given.trade.id%>'>  <%=given.trade.title %></a> </td>
+                <td> <%=given.trade.category %> </td>
+                <td> <%=given.trade.status%> </td>
+
+                <td>
+                    <form>
+                        <button class="button" type="submit" formmethod="POST" formaction="/trades/<%=given.id%>/canceloffer">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+            <%}); %>     
+    </table>
+   
+<% } else {%>
+    <p> You do not have any offers</p>
+<%} %>
+</div>
+</div>
+    </div>
+    <%- include('../partials/footer.ejs')%>

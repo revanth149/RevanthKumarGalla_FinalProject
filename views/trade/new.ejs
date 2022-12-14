@@ -1,0 +1,43 @@
+<%- include('../partials/header.ejs')%>
+<div class="content">
+    <br>
+    <br>
+    <h3><u> New Trade item form</u></h3>
+        <form  action='/trades' id="formpage" method='POST' >
+            <table>
+                <tr>
+                    <td>Title: </td>
+                    <td><input type="text" id="title" name="title" ><br> </td>
+                </tr>
+                <tr>
+                    <td>Category:</td>
+                    <td><input type="text" id="Category" name="category" ><br></td>
+                </tr>
+                <tr>
+                    <td>Details: </td>
+                    <td><input type="text" id="details" name="Details"  ><br> </td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td><input type="text" id="status" name="status" ><br></td>
+
+                    <!-- <td><label for="status"> Status:</label></td>
+
+                   <td> <select name="sttaus" id="status">
+                        <option value="Available"> Available</option>
+                        <option value="Trade offered">Trade offered</option>
+                        <option value="Traded">Traded</option>
+                    </select></td> -->
+                </tr>
+                <tr>
+                    <td>Image URL:</td>
+                    <td><input type="text" id="image" name="image" ><br></td>
+                </tr>
+                
+                   
+            </table>    
+            <input type="submit" value="Submit">
+        </form>
+    <img id="elec" src="/images/electronics.png" alt=" electronics" width="400" height="350"> 
+</div>
+<%- include('../partials/footer.ejs')%>
